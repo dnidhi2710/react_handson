@@ -16,7 +16,7 @@ class App extends Component {
       }, {
         id: 3,
         title: "Fill the gas",
-        completed: false
+        completed: true
       }, {
         id: 4,
         title: "Get a new car",
@@ -27,13 +27,30 @@ class App extends Component {
         completed: false
       }
     ]
-  };
+  }
+
+  // Toggle todo list
+  markComplete = (id) => {
+    this.setState({
+      todos: this.state.todos.map(todo => {
+        if (todo.id === id) {
+          todo.completed = !todo.completed
+        }
+        return todo;
+      })
+    });
+  }
+  //delete todo
+  delTodo = (id) => {
+    this.setState({ todos: [...this.state.todos.filter(todo => todo.id !== id)] });
+  }
+
   render() {
     return (
       <div className="App">
         <h2>
-          <code>Hello world!!!</code>
-          <Todos todos={this.state.todos} />
+          <code>Todo List</code>
+          <Todos todos={this.state.todos} markComplete={this.markComplete} delTodo={this.delTodo} />
         </h2>
       </div>
     )
